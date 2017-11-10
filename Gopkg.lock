@@ -80,10 +80,10 @@
   revision = "23c074d0eceb2b8a5bfdbb271ab780cde70f05a8"
 
 [[projects]]
+  branch = "master"
   name = "github.com/hashicorp/vault"
   packages = ["api","helper/certutil","helper/compressutil","helper/consts","helper/errutil","helper/jsonutil","helper/logformat","helper/mlock","helper/parseutil","helper/pluginutil","helper/salt","helper/strutil","helper/wrapping","logical","logical/framework","logical/plugin"]
-  revision = "6b29fb2b7f70ed538ee2b3c057335d706b6d4e36"
-  version = "v0.8.3"
+  revision = "46be396b134b6c5c4078441e39e4ec1f8702aab4"
 
 [[projects]]
   branch = "master"
@@ -140,6 +140,12 @@
   version = "v0.8.0"
 
 [[projects]]
+  name = "github.com/ryanuber/go-glob"
+  packages = ["."]
+  revision = "572520ed46dbddaed19ea3d9541bdd0494163693"
+  version = "v0.1"
+
+[[projects]]
   branch = "master"
   name = "github.com/sethgrid/pester"
   packages = ["."]
@@ -190,6 +196,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "7d241434497f5ebccc6a457420ff4aac58c45124aea33a2541e7f99bf6d33539"
+  inputs-digest = "c9de5a1c5fe91509201c9c6b0b5cd163548be0701c70d6e2fb3167f503665290"
   solver-name = "gps-cdcl"
   solver-version = 1
