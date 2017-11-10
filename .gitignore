@@ -15,6 +15,7 @@
 
 # Compiled binaries
 /bin/
+/pkg/
 
 # Local development tmp
 /tmp/
