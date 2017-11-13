@@ -20,29 +20,29 @@ that kinda thing.
 
 1. Move the compiled plugin into Vault's configured `plugin_directory`:
 
-  ```sh
-  $ mv vault-secrets-gen /etc/vault/plugins/vault-secrets-gen
-  ```
+    ```sh
+    $ mv vault-secrets-gen /etc/vault/plugins/vault-secrets-gen
+    ```
 
 1. Calculate the SHA256 of the plugin and register it in Vault's plugin catalog.
 If you are downloading the pre-compiled binary, it is highly recommended that
 you use the published checksums to verify integrity.
 
-  ```sh
-  $ export SHA256=$(shasum -a 256 "/etc/vault/plugins/vault-secrets-gen" | cut -d' ' -f1)
+    ```sh
+    $ export SHA256=$(shasum -a 256 "/etc/vault/plugins/vault-secrets-gen" | cut -d' ' -f1)
 
-  $ vault write sys/plugins/catalog/secrets-gen \
-      sha_256="${SHA256}" \
-      command="vault-secrets-gen"
-  ```
+    $ vault write sys/plugins/catalog/secrets-gen \
+        sha_256="${SHA256}" \
+        command="vault-secrets-gen"
+    ```
 
 1. Mount the secrets engine:
 
-  ```sh
-  $ vault mount \
-      -path="gen" \
-      -plugin-name="secrets-gen plugin"
-  ```
+    ```sh
+    $ vault mount \
+        -path="gen" \
+        -plugin-name="secrets-gen plugin"
+    ```
 
 ## Usage & API
 
