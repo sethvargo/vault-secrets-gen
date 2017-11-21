@@ -41,7 +41,7 @@ you use the published checksums to verify integrity.
     ```sh
     $ vault mount \
         -path="gen" \
-        -plugin-name="secrets-gen plugin"
+        -plugin-name="secrets-gen" plugin
     ```
 
 ## Usage & API
