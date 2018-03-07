@@ -10,6 +10,9 @@ type ResponseWrapInfo struct {
 	// The token containing the wrapped response
 	Token string `json:"token" structs:"token" mapstructure:"token" sentinel:""`
 
+	// The token accessor for the wrapped response token
+	Accessor string `json:"accessor" structs:"accessor" mapstructure:"accessor"`
+
 	// The creation time. This can be used with the TTL to figure out an
 	// expected expiration.
 	CreationTime time.Time `json:"creation_time" structs:"creation_time" mapstructure:"creation_time" sentinel:""`
@@ -20,7 +23,7 @@ type ResponseWrapInfo struct {
 
 	// WrappedEntityID is the entity identifier of the caller who initiated the
 	// wrapping request
-	WrappedEntityID string `json:"wrapped_entity_id" structs:"wrapped_entity_id" mapstructure:"wrapped_entity_id sentinel:"""`
+	WrappedEntityID string `json:"wrapped_entity_id" structs:"wrapped_entity_id" mapstructure:"wrapped_entity_id" sentinel:""`
 
 	// The format to use. This doesn't get returned, it's only internal.
 	Format string `json:"format" structs:"format" mapstructure:"format" sentinel:""`

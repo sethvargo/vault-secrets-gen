@@ -5,7 +5,8 @@
 
 This library implements the [Diceware](https://en.wikipedia.org/wiki/Diceware)
 algorithm in pure Golang. The algorithm is most-commonly used when generating
-human-readable passwords.
+human-readable passwords. You may be familiar with the [XKCD
+comic](https://xkcd.com/936/).
 
 The list of words are generated from the [EFF's "long"
 list](https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases).
@@ -26,7 +27,7 @@ confusion studio abstain subdivide chewy ouch password tropical pentagon
 ## Installation
 
 ```sh
-$ go -u get github.com/sethvargo/diceware
+$ go get -u github.com/sethvargo/go-diceware
 ```
 
 ## Usage

@@ -37,6 +37,13 @@ func (r *RequestWrapInfo) SentinelGet(key string) (interface{}, error) {
 	return nil, nil
 }
 
+func (r *RequestWrapInfo) SentinelKeys() []string {
+	return []string{
+		"ttl",
+		"ttl_seconds",
+	}
+}
+
 // Request is a struct that stores the parameters and context of a request
 // being made to Vault. It is used to abstract the details of the higher level
 // request protocol from the handlers.
@@ -176,6 +183,14 @@ func (r *Request) SentinelGet(key string) (interface{}, error) {
 	return nil, nil
 }
 
+func (r *Request) SentinelKeys() []string {
+	return []string{
+		"path",
+		"wrapping",
+		"wrap_info",
+	}
+}
+
 func (r *Request) LastRemoteWAL() uint64 {
 	return r.lastRemoteWAL
 }
@@ -185,8 +200,7 @@ func (r *Request) SetLastRemoteWAL(last uint64) {
 }
 
 // RenewRequest creates the structure of the renew request.
-func RenewRequest(
-	path string, secret *Secret, data map[string]interface{}) *Request {
+func RenewRequest(path string, secret *Secret, data map[string]interface{}) *Request {
 	return &Request{
 		Operation: RenewOperation,
 		Path:      path,
@@ -196,8 +210,7 @@ func RenewRequest(
 }
 
 // RenewAuthRequest creates the structure of the renew request for an auth.
-func RenewAuthRequest(
-	path string, auth *Auth, data map[string]interface{}) *Request {
+func RenewAuthRequest(path string, auth *Auth, data map[string]interface{}) *Request {
 	return &Request{
 		Operation: RenewOperation,
 		Path:      path,
@@ -207,8 +220,7 @@ func RenewAuthRequest(
 }
 
 // RevokeRequest creates the structure of the revoke request.
-func RevokeRequest(
-	path string, secret *Secret, data map[string]interface{}) *Request {
+func RevokeRequest(path string, secret *Secret, data map[string]interface{}) *Request {
 	return &Request{
 		Operation: RevokeOperation,
 		Path:      path,
@@ -260,4 +272,8 @@ var (
 
 	// ErrPermissionDenied is returned if the client is not authorized
 	ErrPermissionDenied = errors.New("permission denied")
+
+	// ErrMultiAuthzPending is returned if the the request needs more
+	// authorizations
+	ErrMultiAuthzPending = errors.New("request needs further approval")
 )

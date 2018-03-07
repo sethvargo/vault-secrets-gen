@@ -12,6 +12,7 @@ import (
 	"strings"
 	"sync"
 	"time"
+	"unicode"
 
 	"github.com/hashicorp/errwrap"
 	"github.com/hashicorp/go-cleanhttp"
@@ -116,12 +117,12 @@ func DefaultConfig() *Config {
 	}
 	if err := http2.ConfigureTransport(transport); err != nil {
 		config.Error = err
-		return nil
+		return config
 	}
 
 	if err := config.ReadEnvironment(); err != nil {
 		config.Error = err
-		return nil
+		return config
 	}
 
 	// Ensure redirects are not automatically followed
@@ -177,7 +178,12 @@ func (c *Config) ConfigureTLS(t *TLSConfig) error {
 	}
 
 	if foundClientCert {
-		clientTLSConfig.Certificates = []tls.Certificate{clientCert}
+		// We use this function to ignore the server's preferential list of
+		// CAs, otherwise any CA used for the cert auth backend must be in the
+		// server's CA pool
+		clientTLSConfig.GetClientCertificate = func(*tls.CertificateRequestInfo) (*tls.Certificate, error) {
+			return &clientCert, nil
+		}
 	}
 
 	if t.TLSServerName != "" {
@@ -525,7 +531,16 @@ func (c *Client) RawRequest(r *Request) (*Response, error) {
 	c.modifyLock.RLock()
 	c.config.modifyLock.RLock()
 	defer c.config.modifyLock.RUnlock()
+	token := c.token
 	c.modifyLock.RUnlock()
+
+	// Sanity check the token before potentially erroring from the API
+	idx := strings.IndexFunc(token, func(c rune) bool {
+		return !unicode.IsPrint(c)
+	})
+	if idx != -1 {
+		return nil, fmt.Errorf("Configured Vault token contains non-printable characters and cannot be used.")
+	}
 
 	redirectCount := 0
 START:

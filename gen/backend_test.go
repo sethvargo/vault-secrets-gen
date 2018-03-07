@@ -1,6 +1,7 @@
 package gen
 
 import (
+	"context"
 	"strings"
 	"testing"
 
@@ -14,7 +15,7 @@ func testBackend(tb testing.TB) (*backend, logical.Storage) {
 	config := logical.TestBackendConfig()
 	config.StorageView = &logical.InmemStorage{}
 
-	b, err := Factory(config)
+	b, err := Factory(context.Background(), config)
 	if err != nil {
 		tb.Fatal(err)
 	}
@@ -26,7 +27,7 @@ func TestBackend(t *testing.T) {
 		t.Parallel()
 
 		b, storage := testBackend(t)
-		resp, err := b.HandleRequest(&logical.Request{
+		resp, err := b.HandleRequest(context.Background(), &logical.Request{
 			Storage:   storage,
 			Operation: logical.ReadOperation,
 			Path:      "info",
@@ -48,7 +49,7 @@ func TestBackend(t *testing.T) {
 		t.Parallel()
 
 		b, storage := testBackend(t)
-		resp, err := b.HandleRequest(&logical.Request{
+		resp, err := b.HandleRequest(context.Background(), &logical.Request{
 			Storage:   storage,
 			Operation: logical.UpdateOperation,
 			Path:      "password",
@@ -67,7 +68,7 @@ func TestBackend(t *testing.T) {
 		t.Parallel()
 
 		b, storage := testBackend(t)
-		resp, err := b.HandleRequest(&logical.Request{
+		resp, err := b.HandleRequest(context.Background(), &logical.Request{
 			Storage:   storage,
 			Operation: logical.UpdateOperation,
 			Path:      "passphrase",

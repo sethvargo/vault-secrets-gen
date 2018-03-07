@@ -1,6 +1,7 @@
 package gen
 
 import (
+	"context"
 	"net/http"
 	"strings"
 
@@ -11,7 +12,7 @@ import (
 )
 
 // pathPassphrase corresponds to POST gen/passphrase.
-func (b *backend) pathPassphrase(req *logical.Request, d *framework.FieldData) (*logical.Response, error) {
+func (b *backend) pathPassphrase(_ context.Context, req *logical.Request, d *framework.FieldData) (*logical.Response, error) {
 	if err := validateFields(req, d); err != nil {
 		return nil, logical.CodedError(http.StatusUnprocessableEntity, err.Error())
 	}

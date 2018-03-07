@@ -1,6 +1,7 @@
 package gen
 
 import (
+	"context"
 	"net/http"
 
 	"github.com/hashicorp/vault/logical"
@@ -10,7 +11,7 @@ import (
 )
 
 // pathPassword corresponds to POST gen/password.
-func (b *backend) pathPassword(req *logical.Request, d *framework.FieldData) (*logical.Response, error) {
+func (b *backend) pathPassword(_ context.Context, req *logical.Request, d *framework.FieldData) (*logical.Response, error) {
 	if err := validateFields(req, d); err != nil {
 		return nil, logical.CodedError(http.StatusUnprocessableEntity, err.Error())
 	}

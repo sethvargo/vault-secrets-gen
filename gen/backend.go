@@ -1,6 +1,8 @@
 package gen
 
 import (
+	"context"
+
 	log "github.com/mgutz/logxi/v1"
 
 	"github.com/hashicorp/vault/logical"
@@ -9,9 +11,9 @@ import (
 )
 
 // Factory creates a new usable instance of this secrets engine.
-func Factory(c *logical.BackendConfig) (logical.Backend, error) {
+func Factory(ctx context.Context, c *logical.BackendConfig) (logical.Backend, error) {
 	b := Backend(c)
-	if err := b.Setup(c); err != nil {
+	if err := b.Setup(ctx, c); err != nil {
 		return nil, errors.Wrap(err, "failed to create factory")
 	}
 	return b, nil
