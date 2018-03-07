@@ -44,7 +44,7 @@ function cleanup {
 trap cleanup EXIT
 
 echo "    Authing"
-vault auth root &>/dev/null
+vault login root &>/dev/null
 
 echo "--> Building"
 go build -o "$SCRATCH/plugins/vault-secrets-gen"
@@ -56,7 +56,7 @@ vault write sys/plugins/catalog/secrets-gen \
   command="vault-secrets-gen"
 
 echo "    Mouting plugin"
-vault mount -path=gen -plugin-name=secrets-gen plugin
+vault secrets enable -path=gen -plugin-name=secrets-gen plugin
 
 echo "    Reading out"
 vault read gen/info

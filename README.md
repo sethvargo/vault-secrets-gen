@@ -39,9 +39,10 @@ you use the published checksums to verify integrity.
 1. Mount the secrets engine:
 
     ```sh
-    $ vault mount \
+    $ vault secrets enable \
         -path="gen" \
-        -plugin-name="secrets-gen" plugin
+        -plugin-name="secrets-gen" \
+        plugin
     ```
 
 ## Usage & API
