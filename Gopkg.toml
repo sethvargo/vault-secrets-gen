@@ -1,10 +1,6 @@
 [[constraint]]
-  branch = "master"
   name = "github.com/hashicorp/vault"
-
-[[constraint]]
-  name = "github.com/mgutz/logxi"
-  version = "1.0.0"
+  version = "0.11.1"
 
 [[constraint]]
   name = "github.com/pkg/errors"
@@ -15,5 +11,10 @@
   name = "github.com/sethvargo/go-diceware"
 
 [[constraint]]
-  branch = "master"
   name = "github.com/sethvargo/go-password"
+  version = "0.1.1"
+
+[prune]
+  non-go = true
+  go-tests = true
+  unused-packages = true

@@ -18,22 +18,34 @@ import (
 	"math/big"
 )
 
+var (
+	// digits is the number of digits to roll. This is determined by the
+	// dictionary, but only one dictionary is supported today.
+	digits = 5
+
+	// sides is the number of sides on a die
+	sides = big.NewInt(6)
+)
+
 // Generate generates a list of the given number of words.
 func Generate(words int) ([]string, error) {
 	list := make([]string, 0, words)
+	seen := make(map[string]struct{}, words)
 
 	for i := 0; i < words; i++ {
-		n, err := RollWord(5)
+		n, err := RollWord(digits)
 		if err != nil {
 			return nil, err
 		}
 
 		word := WordAt(n)
-		if in(list, word) {
+		if _, ok := seen[word]; ok {
 			i--
 			continue
 		}
+
 		list = append(list, word)
+		seen[word] = struct{}{}
 	}
 
 	return list, nil
@@ -48,16 +60,6 @@ func MustGenerate(words int) []string {
 	return res
 }
 
-// in checks if the given string is in the list.
-func in(list []string, val string) bool {
-	for _, v := range list {
-		if v == val {
-			return true
-		}
-	}
-	return false
-}
-
 // WordAt retrieves the word at the given index.
 func WordAt(i int) string {
 	return words[i]
@@ -65,7 +67,7 @@ func WordAt(i int) string {
 
 // RollDie rolls a single 6-sided die and returns a value between [1,6].
 func RollDie() (int, error) {
-	r, err := rand.Int(rand.Reader, big.NewInt(6))
+	r, err := rand.Int(rand.Reader, sides)
 	if err != nil {
 		return 0, err
 	}
@@ -74,10 +76,10 @@ func RollDie() (int, error) {
 
 // RollWord rolls and aggregates dice to represent one word in the list. The
 // result is the index of the word in the list.
-func RollWord(digits int) (int, error) {
+func RollWord(d int) (int, error) {
 	var final int
 
-	for i := digits; i > 0; i-- {
+	for i := d; i > 0; i-- {
 		res, err := RollDie()
 		if err != nil {
 			return 0, err

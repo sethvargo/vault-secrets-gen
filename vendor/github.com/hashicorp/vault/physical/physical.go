@@ -5,7 +5,7 @@ import (
 	"strings"
 	"sync"
 
-	log "github.com/mgutz/logxi/v1"
+	log "github.com/hashicorp/go-hclog"
 )
 
 const DefaultParallelOperations = 128
@@ -39,7 +39,7 @@ type Backend interface {
 	// Delete is used to permanently delete an entry
 	Delete(ctx context.Context, key string) error
 
-	// List is used ot list all the keys under a given
+	// List is used to list all the keys under a given
 	// prefix, up to the next prefix.
 	List(ctx context.Context, prefix string) ([]string, error)
 }
