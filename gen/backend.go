@@ -33,7 +33,12 @@ func Backend(c *logical.BackendConfig) *backend {
 
 	b.Backend = &framework.Backend{
 		BackendType: logical.TypeLogical,
-		Help:        backendHelp,
+		Help: `
+
+The gen secrets engine generates passwords and passphrases, and optionally
+stores the resulting password in an accessor.
+
+		`,
 		Paths: []*framework.Path{
 			// gen/info
 			&framework.Path{

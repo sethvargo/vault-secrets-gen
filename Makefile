@@ -19,8 +19,8 @@ GOVERSION := 1.10
 PROJECT := $(CURRENT_DIR:$(GOPATH)/src/%=%)
 OWNER := $(notdir $(patsubst %/,%,$(dir $(PROJECT))))
 NAME := $(notdir $(PROJECT))
-GIT_COMMIT ?= $(shell git rev-parse --short HEAD)
-VERSION := $(shell awk -F\" '/Version/ { print $$2; exit }' "${CURRENT_DIR}/version/version.go")
+GIT_COMMIT := $(shell git rev-parse --short HEAD)
+VERSION := $(go run version/cmd/main.go)
 EXTERNAL_TOOLS = \
 	github.com/golang/dep/cmd/dep
 
