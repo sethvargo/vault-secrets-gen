@@ -1,16 +1,20 @@
-dist: trusty
-sudo: false
-
 language: go
 
 go:
-  - 1.9
+- '1.11'
+
+git:
+  depth: 1
+  quiet: true
 
 env:
-  - GOMAXPROCS=4
+- GOMAXPROCS=4
 
 branches:
   only:
-    - master
+  - master
+
+matrix:
+  fast_finish: true
 
 script: make test test-race
