@@ -95,7 +95,6 @@ bootstrap:
 deps:
 	@echo "==> Updating deps for ${PROJECT}"
 	@dep ensure -update
-	@dep prune
 .PHONY: deps
 
 # dev builds and installs the project locally.

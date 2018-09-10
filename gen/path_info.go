@@ -12,6 +12,7 @@ import (
 func (b *backend) pathInfo(_ context.Context, req *logical.Request, _ *framework.FieldData) (*logical.Response, error) {
 	return &logical.Response{
 		Data: map[string]interface{}{
+			"name":    version.Name,
 			"commit":  version.GitCommit,
 			"version": version.Version,
 		},

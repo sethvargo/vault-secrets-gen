@@ -3,8 +3,6 @@ package gen
 import (
 	"context"
 
-	log "github.com/mgutz/logxi/v1"
-
 	"github.com/hashicorp/vault/logical"
 	"github.com/hashicorp/vault/logical/framework"
 	"github.com/pkg/errors"
@@ -22,14 +20,11 @@ func Factory(ctx context.Context, c *logical.BackendConfig) (logical.Backend, er
 // backend is the actual backend.
 type backend struct {
 	*framework.Backend
-	logger log.Logger
 }
 
 // Backend creates a new backend.
 func Backend(c *logical.BackendConfig) *backend {
 	var b backend
-
-	b.logger = c.Logger
 
 	b.Backend = &framework.Backend{
 		BackendType: logical.TypeLogical,
