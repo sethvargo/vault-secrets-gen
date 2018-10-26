@@ -23,6 +23,12 @@ that kinda thing.
     ```sh
     $ mv vault-secrets-gen /etc/vault/plugins/vault-secrets-gen
     ```
+    
+1. Enable mlock so the plugin can safely be enabled and disabled:
+
+   ```sh
+   setcap cap_ipc_lock=+ep /etc/vault/plugins/vault-secrets-gen
+   ```
 
 1. Calculate the SHA256 of the plugin and register it in Vault's plugin catalog.
 If you are downloading the pre-compiled binary, it is highly recommended that
