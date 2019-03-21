@@ -1,14 +1,14 @@
 language: go
 
 go:
-- '1.11'
+- '1.12'
 
 git:
   depth: 1
   quiet: true
 
 env:
-- GOMAXPROCS=4
+- GOMAXPROCS=4 GO111MODULE=on
 
 branches:
   only:
