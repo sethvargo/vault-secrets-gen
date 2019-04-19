@@ -123,8 +123,3 @@ part of the response. The generated passphrase is not stored.
 
 	return &b
 }
-
-const backendHelp = `
-The gen secrets engine generates passwords and passphrases, and optionally
-stores the resulting password in an accessor.
-`
