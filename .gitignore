@@ -19,3 +19,6 @@
 
 # Local development tmp
 /tmp/
+
+# Vendor
+/vendor/
