@@ -4,18 +4,20 @@ import (
 	"log"
 	"os"
 
-	"github.com/hashicorp/vault/helper/pluginutil"
-	"github.com/hashicorp/vault/logical/plugin"
+	"github.com/hashicorp/vault/api"
+	"github.com/hashicorp/vault/sdk/plugin"
 	"github.com/sethvargo/vault-secrets-gen/gen"
 )
 
 func main() {
-	apiClientMeta := &pluginutil.APIClientMeta{}
+	apiClientMeta := &api.PluginAPIClientMeta{}
 	flags := apiClientMeta.FlagSet()
-	flags.Parse(os.Args[1:])
+	if err := flags.Parse(os.Args[1:]); err != nil {
+		log.Fatal(err)
+	}
 
 	tlsConfig := apiClientMeta.GetTLSConfig()
-	tlsProviderFunc := pluginutil.VaultPluginTLSProvider(tlsConfig)
+	tlsProviderFunc := api.VaultPluginTLSProvider(tlsConfig)
 
 	if err := plugin.Serve(&plugin.ServeOpts{
 		BackendFactoryFunc: gen.Factory,

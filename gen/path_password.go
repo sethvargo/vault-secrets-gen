@@ -4,8 +4,8 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/hashicorp/vault/logical"
-	"github.com/hashicorp/vault/logical/framework"
+	"github.com/hashicorp/vault/sdk/framework"
+	"github.com/hashicorp/vault/sdk/logical"
 	"github.com/pkg/errors"
 	"github.com/sethvargo/go-password/password"
 )

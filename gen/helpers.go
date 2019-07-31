@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/hashicorp/vault/logical"
-	"github.com/hashicorp/vault/logical/framework"
+	"github.com/hashicorp/vault/sdk/framework"
+	"github.com/hashicorp/vault/sdk/logical"
 )
 
 // validateFields verifies that no bad arguments were given to the request.
