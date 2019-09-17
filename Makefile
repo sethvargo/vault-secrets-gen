@@ -20,7 +20,7 @@ PROJECT := $(CURRENT_DIR:$(GOPATH)/src/%=%)
 OWNER := $(notdir $(patsubst %/,%,$(dir $(PROJECT))))
 NAME := $(notdir $(PROJECT))
 GIT_COMMIT := $(shell git rev-parse --short HEAD)
-VERSION := $(go run version/cmd/main.go)
+VERSION := $(shell go run version/cmd/main.go)
 
 # Current system information
 GOOS ?= $(shell go env GOOS)
