@@ -37,7 +37,7 @@ you use the published checksums to verify integrity.
     ```sh
     $ export SHA256=$(shasum -a 256 "/etc/vault/plugins/vault-secrets-gen" | cut -d' ' -f1)
 
-    $ vault write sys/plugins/catalog/secrets-gen \
+    $ vault write sys/plugins/catalog/database/secrets-gen \
         sha_256="${SHA256}" \
         command="vault-secrets-gen"
     ```
