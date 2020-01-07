@@ -28,8 +28,8 @@ GOARCH ?= $(shell go env GOARCH)
 
 # Default os-arch combination to build
 XC_OS ?= darwin freebsd linux netbsd openbsd solaris windows
-XC_ARCH ?= 386 amd64 arm
-XC_EXCLUDE ?= darwin/arm solaris/386 solaris/arm windows/arm
+XC_ARCH ?= amd64
+XC_EXCLUDE ?=
 
 # GPG Signing key (blank by default, means no GPG signing)
 GPG_KEY ?=
@@ -146,7 +146,6 @@ _compress:
 		fi; \
 		cd "$$platform"; \
 		tar -czf "${CURRENT_DIR}/pkg/dist/${NAME}_${VERSION}_$${osarch}.tgz" "${NAME}$${ext}"; \
-		zip -q "${CURRENT_DIR}/pkg/dist/${NAME}_${VERSION}_$${osarch}.zip" "${NAME}$${ext}"; \
 		cd - &>/dev/null; \
 	done
 .PHONY: _compress
