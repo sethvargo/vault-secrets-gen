@@ -67,6 +67,7 @@ define make-xc-target
 				GO111MODULE=on \
 				go build \
 				  -a \
+					-trimpath \
 					-o="pkg/${1}_${2}/${NAME}${3}" \
 					-ldflags "${LD_FLAGS}" \
 					-mod vendor \
