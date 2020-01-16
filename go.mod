@@ -5,7 +5,7 @@ go 1.13
 require (
 	github.com/armon/go-radix v1.0.0 // indirect
 	github.com/fatih/color v1.9.0 // indirect
-	github.com/frankban/quicktest v1.5.0 // indirect
+	github.com/frankban/quicktest v1.7.2 // indirect
 	github.com/hashicorp/go-hclog v0.11.0 // indirect
 	github.com/hashicorp/go-immutable-radix v1.1.0 // indirect
 	github.com/hashicorp/go-retryablehttp v0.6.4 // indirect
