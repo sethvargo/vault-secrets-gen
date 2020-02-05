@@ -51,9 +51,7 @@ go build -o "$SCRATCH/plugins/vault-secrets-gen"
 SHASUM=$(shasum -a 256 "$SCRATCH/plugins/vault-secrets-gen" | cut -d " " -f1)
 
 echo "    Registering plugin"
-vault write sys/plugins/catalog/secrets-gen \
-  sha_256="$SHASUM" \
-  command="vault-secrets-gen"
+vault plugin register -sha256="${SHASUM}" -command="vault-secrets-gen" secret secrets-gen
 
 echo "    Mouting plugin"
 vault secrets enable -path=gen -plugin-name=secrets-gen plugin

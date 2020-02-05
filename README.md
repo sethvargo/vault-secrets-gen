@@ -23,7 +23,7 @@ that kinda thing.
     ```sh
     $ mv vault-secrets-gen /etc/vault/plugins/vault-secrets-gen
     ```
-    
+
 1. Enable mlock so the plugin can safely be enabled and disabled:
 
    ```sh
@@ -37,9 +37,10 @@ you use the published checksums to verify integrity.
     ```sh
     $ export SHA256=$(shasum -a 256 "/etc/vault/plugins/vault-secrets-gen" | cut -d' ' -f1)
 
-    $ vault write sys/plugins/catalog/secrets-gen \
-        sha_256="${SHA256}" \
-        command="vault-secrets-gen"
+    $ vault plugin register \
+        -sha256="${SHA256}" \
+        -command="vault-secrets-gen" \
+        secret secrets-gen
     ```
 
 1. Mount the secrets engine:
