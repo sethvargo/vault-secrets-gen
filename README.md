@@ -54,6 +54,16 @@ you use the published checksums to verify integrity.
 
 ## Usage & API
 
+### Policy requirements
+
+The token used should have the following policy permissions to be able to generate passwords.
+
+```hcl
+path "gen/password" {
+  capabilities = ["create", "update"]
+}
+```
+
 ### Generate Password
 
 Generates a random, high-entropy password with the specified number of
