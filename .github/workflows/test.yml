@@ -1,0 +1,44 @@
+name: Test
+
+on:
+  push:
+    branches:
+    - main
+    tags:
+    - '*'
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+        - 'macos-latest'
+        - 'ubuntu-latest'
+        - 'windows-latest'
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: actions/setup-go@v2
+      with:
+        go-version: '1.15'
+
+    - uses: actions/cache@v2
+      with:
+        path: ~/go/pkg/mod
+        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-go-
+
+    - name: Lint
+      run: make fmtcheck staticcheck spellcheck
+      if: ${{ runner.os != 'Windows' }}
+
+    - name: Test
+      run: make test-acc
