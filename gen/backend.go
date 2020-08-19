@@ -1,3 +1,4 @@
+// Package gen generates passwords and passphrases.
 package gen
 
 import (
@@ -36,7 +37,7 @@ stores the resulting password in an accessor.
 		`,
 		Paths: []*framework.Path{
 			// gen/info
-			&framework.Path{
+			{
 				Pattern:      "info",
 				HelpSynopsis: "Display information about this plugin",
 				HelpDescription: `
@@ -51,7 +52,7 @@ get help.
 			},
 
 			// gen/password
-			&framework.Path{
+			{
 				Pattern:      "password",
 				HelpSynopsis: "Generate and return a random password",
 				HelpDescription: `
@@ -61,27 +62,27 @@ returning it as part of the response. The generated password is not stored.
 
 `,
 				Fields: map[string]*framework.FieldSchema{
-					"length": &framework.FieldSchema{
+					"length": {
 						Type:        framework.TypeInt,
 						Description: "Number of characters for the password.",
 						Default:     64,
 					},
-					"digits": &framework.FieldSchema{
+					"digits": {
 						Type:        framework.TypeInt,
 						Description: "Number of digits for the password.",
 						Default:     10,
 					},
-					"symbols": &framework.FieldSchema{
+					"symbols": {
 						Type:        framework.TypeInt,
 						Description: "Number of symbols for the password.",
 						Default:     10,
 					},
-					"allow_uppercase": &framework.FieldSchema{
+					"allow_uppercase": {
 						Type:        framework.TypeBool,
 						Description: "Allow uppercase letters in the generated password.",
 						Default:     true,
 					},
-					"allow_repeat": &framework.FieldSchema{
+					"allow_repeat": {
 						Type:        framework.TypeBool,
 						Description: "Allow repeating characters, digits, and symbols in the generated password.",
 						Default:     true,
@@ -93,7 +94,7 @@ returning it as part of the response. The generated password is not stored.
 			},
 
 			// gen/passphrase
-			&framework.Path{
+			{
 				Pattern:      "passphrase",
 				HelpSynopsis: "Generate and return a random passphrase",
 				HelpDescription: `
@@ -103,12 +104,12 @@ part of the response. The generated passphrase is not stored.
 
 `,
 				Fields: map[string]*framework.FieldSchema{
-					"words": &framework.FieldSchema{
+					"words": {
 						Type:        framework.TypeInt,
 						Description: "Number of words for the passphrase.",
 						Default:     6,
 					},
-					"separator": &framework.FieldSchema{
+					"separator": {
 						Type:        framework.TypeString,
 						Description: "Character to separate words in passphrase.",
 						Default:     "-",

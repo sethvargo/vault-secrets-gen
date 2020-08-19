@@ -1,4 +1,4 @@
-module github.com/sethvargo/go-limiter/tools
+module github.com/sethvargo/vault-secrets-gen/tools
 
 go 1.14
 
