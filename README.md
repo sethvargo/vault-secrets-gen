@@ -18,7 +18,8 @@ authenticated.
 GitHub. Alternatively you can compile the plugin from source, if you're into
 that kinda thing.
 
-1. Move the compiled plugin into Vault's configured `plugin_directory`:
+1. Move the compiled plugin into Vault's configured `plugin_directory`. You must
+   set this value in the [server configuration][vault-config]:
 
     ```sh
     $ mv vault-secrets-gen /etc/vault/plugins/vault-secrets-gen
@@ -128,3 +129,5 @@ value	obstacle-sacrament-sizable-variably
 ## License
 
 This code is licensed under the MIT license.
+
+[vault-config]: https://www.vaultproject.io/docs/configuration#plugin_directory
