@@ -2,11 +2,11 @@ package gen
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 
 	"github.com/hashicorp/vault/sdk/framework"
 	"github.com/hashicorp/vault/sdk/logical"
-	"github.com/pkg/errors"
 	"github.com/sethvargo/go-password/password"
 )
 
@@ -24,7 +24,7 @@ func (b *backend) pathPassword(_ context.Context, req *logical.Request, d *frame
 
 	pwd, err := password.Generate(length, digits, symbols, !allowUpper, allowRepeat)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to generate password")
+		return nil, fmt.Errorf("failed to generate password: %w", err)
 	}
 
 	return &logical.Response{

@@ -2,12 +2,12 @@ package gen
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"strings"
 
 	"github.com/hashicorp/vault/sdk/framework"
 	"github.com/hashicorp/vault/sdk/logical"
-	"github.com/pkg/errors"
 	"github.com/sethvargo/go-diceware/diceware"
 )
 
@@ -26,7 +26,7 @@ func (b *backend) pathPassphrase(_ context.Context, req *logical.Request, d *fra
 
 	list, err := diceware.Generate(words)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to generate passphrase")
+		return nil, fmt.Errorf("failed to generate passphrase: %w", err)
 	}
 
 	return &logical.Response{

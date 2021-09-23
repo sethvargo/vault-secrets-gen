@@ -3,17 +3,17 @@ package gen
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/hashicorp/vault/sdk/framework"
 	"github.com/hashicorp/vault/sdk/logical"
-	"github.com/pkg/errors"
 )
 
 // Factory creates a new usable instance of this secrets engine.
 func Factory(ctx context.Context, c *logical.BackendConfig) (logical.Backend, error) {
 	b := Backend(c)
 	if err := b.Setup(ctx, c); err != nil {
-		return nil, errors.Wrap(err, "failed to create factory")
+		return nil, fmt.Errorf("failed to create factory: %w", err)
 	}
 	return b, nil
 }
