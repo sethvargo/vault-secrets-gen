@@ -1,7 +1,5 @@
 # Password Generator for HashiCorp Vault
 
-[![Build Status](https://travis-ci.org/sethvargo/vault-secrets-gen.svg?branch=master)](https://travis-ci.org/sethvargo/vault-secrets-gen)
-
 The Vault Password Generator is a [Vault](https://www.vaultproject.io) secrets
 plugin for generating cryptographically secure passwords and passphrases.
 
