@@ -36,9 +36,5 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-go-
 
-    - name: Lint
-      run: make fmtcheck staticcheck spellcheck
-      if: ${{ runner.os != 'Windows' }}
-
     - name: Test
       run: make test-acc
