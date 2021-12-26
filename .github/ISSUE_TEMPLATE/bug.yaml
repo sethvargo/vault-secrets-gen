@@ -1,0 +1,52 @@
+name: 'Bug report'
+description: 'File a bug report'
+labels: ['bug']
+body:
+- type: 'markdown'
+  attributes:
+    value: |-
+      Thank you for filing an bug. Please complete the form below so we can triage, reproduce, and fix your issue.
+
+- id: 'tldr'
+  type: 'textarea'
+  attributes:
+    label: 'TL;DR'
+    description: 'Describe the bug in 1-2 sentences.'
+  validations:
+    required: true
+
+- id: 'expected_behavior'
+  type: 'textarea'
+  attributes:
+    label: 'Expected behavior'
+    description: 'What did you expect to happen?'
+
+- id: 'observed_behavior'
+  type: 'textarea'
+  attributes:
+    label: 'Observed behavior'
+    description: 'What happened instead?'
+
+- id: 'cli_output'
+  type: 'textarea'
+  attributes:
+    label: 'Vault CLI (or API) output'
+    description: 'Paste the CLI (or API) command and output.'
+    render: 'text'
+  validations:
+    required: true
+
+- id: 'server_output'
+  type: 'textarea'
+  attributes:
+    label: 'Vault server logs'
+    description: 'Paste the Vault server logs for around the same timestamp. These are usually written to /var/log/vault.log, but varies depending on your setup.'
+    render: 'text'
+  validations:
+    required: true
+
+- id: 'additional'
+  type: 'textarea'
+  attributes:
+    label: 'Additional information'
+    description: 'Is there anything else you think we should know?'
