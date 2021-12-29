@@ -1,14 +1,19 @@
-name: Test
+name: 'test'
 
 on:
   push:
     branches:
-    - main
+    - 'main'
     tags:
     - '*'
   pull_request:
     branches:
-    - main
+    - 'main'
+  workflow_dispatch:
+
+concurrency:
+  group: '${{ github.workflow }}-${{ github.head_ref || github.ref }}'
+  cancel-in-progress: true
 
 jobs:
   test:
@@ -20,21 +25,21 @@ jobs:
         - 'ubuntu-latest'
         - 'windows-latest'
 
-    runs-on: ${{ matrix.os }}
+    runs-on: '${{ matrix.os }}'
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: 'actions/checkout@v2'
 
-    - uses: actions/setup-go@v2
+    - uses: 'actions/setup-go@v2'
       with:
-        go-version: '1.15'
+        go-version: '1.17'
 
-    - uses: actions/cache@v2
+    - uses: 'actions/cache@v2'
       with:
-        path: ~/go/pkg/mod
-        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+        path: '~/go/pkg/mod'
+        key: '${{ runner.os }}-go-${{ hashFiles(''**/go.sum'') }}'
         restore-keys: |
           ${{ runner.os }}-go-
 
-    - name: Test
-      run: make test-acc
+    - name: 'Test'
+      run: 'make test-acc'
