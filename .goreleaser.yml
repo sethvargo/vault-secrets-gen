@@ -1,44 +1,44 @@
 before:
   hooks:
-    - go mod tidy
+    - 'go mod tidy'
 builds:
 - env:
-    - CGO_ENABLED=0
+    - 'CGO_ENABLED=0'
   mod_timestamp: '{{ .CommitTimestamp }}'
   flags:
-    - -trimpath
+    - '-trimpath'
   ldflags:
     - '-s -w -X github.com/sethvargo/vault-secrets-gen/version.version={{.Version}} -X github.com/sethvargo/vault-secrets-gen/version.GitCommit={{.Commit}}'
   targets:
-    - darwin_amd64
-    - darwin_arm64
-    - freebsd_amd64
-    - freebsd_arm64
-    - linux_amd64
-    - linux_arm64
-    - netbsd_amd64
-    - netbsd_arm64
-    - openbsd_amd64
-    - openbsd_arm64
-    - windows_amd64
-    - windows_arm
+    - 'darwin_amd64'
+    - 'darwin_arm64'
+    - 'freebsd_amd64'
+    - 'freebsd_arm64'
+    - 'linux_amd64'
+    - 'linux_arm64'
+    - 'netbsd_amd64'
+    - 'netbsd_arm64'
+    - 'openbsd_amd64'
+    - 'openbsd_arm64'
+    - 'windows_amd64'
+    - 'windows_arm'
   binary: '{{ .ProjectName }}_v{{ .Version }}'
 archives:
-- format: zip
+- format: 'zip'
   name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}'
 checksum:
   name_template: '{{ .ProjectName }}_{{ .Version }}_SHA256SUMS'
-  algorithm: sha256
+  algorithm: 'sha256'
 signs:
-  - artifacts: checksum
+  - artifacts: 'checksum'
     args:
-      - "--batch"
-      - "--local-user"
-      - "{{ .Env.GPG_FINGERPRINT }}" # set this environment variable for your signing key
-      - "--output"
-      - "${signature}"
-      - "--detach-sign"
-      - "${artifact}"
+      - '--batch'
+      - '--local-user'
+      - '{{ .Env.GPG_FINGERPRINT }}'
+      - '--output'
+      - '${signature}'
+      - '--detach-sign'
+      - '${artifact}'
 release:
   draft: false
 changelog:
