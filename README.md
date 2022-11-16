@@ -30,7 +30,7 @@ that kinda thing.
    ```
    1. Enable mlock in kubernetes vault pod
 
-      First of all, It's not necessary when we are speaking about Vault in kubernetes, but if you want to enable mlock you check the following steps
+      First of all, It's not necessary when we are speaking about Vault in kubernetes, but if you want to enable mlock, check the following steps:
       
       - Add the following code into your values.yaml file before deploy the helm chart
       ```yaml
@@ -78,7 +78,7 @@ that kinda thing.
         ```
       - Add the command ```setcap cap_ipc_lock=+ep /plugin_path/vault-secrets-gen_VERSION ``` on postStart block
 
-   > **_NOTE:_**  Changing this you will lose in security terms
+   > **_NOTE:_**  Changing this you will lose in security terms. Choose your instalation (Standalone/raft/ha) to set the ```plugin_directory```. Also choose the Version and Distribution [here](https://github.com/sethvargo/vault-secrets-gen/releases)
 
    
 
