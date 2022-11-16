@@ -28,6 +28,7 @@ that kinda thing.
    ```sh
    setcap cap_ipc_lock=+ep /etc/vault/plugins/vault-secrets-gen
    ```
+    > **_NOTE:_** For vault in kubernetes you don't need to do this step. If you want to enable mlock you need to edit the security context to run with privileges permissions and run container with root. Also you will need to set the /etc/vault/plugins/vault-secrets-gen with vault:vault permissions
 
 1. Calculate the SHA256 of the plugin and register it in Vault's plugin catalog.
 If you are downloading the pre-compiled binary, it is highly recommended that
