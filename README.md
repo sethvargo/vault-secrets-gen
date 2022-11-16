@@ -78,7 +78,7 @@ that kinda thing.
         ```
       - Add the command ```setcap cap_ipc_lock=+ep /plugin_path/vault-secrets-gen_VERSION ``` on postStart block
 
-   > **_NOTE:_**  Changing this you will lose in security terms. Choose your instalation (Standalone/raft/ha) to set the ```plugin_directory```. Also choose the Version and Distribution [here](https://github.com/sethvargo/vault-secrets-gen/releases)
+   > **_NOTE:_**  Changing this you will lose in security terms. Choose your installation (Standalone/raft/ha) to set the ```plugin_directory```. Also choose the Version and Distribution [here](https://github.com/sethvargo/vault-secrets-gen/releases)
 
    
 
