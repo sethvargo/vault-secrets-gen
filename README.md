@@ -51,6 +51,30 @@ you use the published checksums to verify integrity.
         plugin
     ```
 
+### Upgrade plugin
+
+In order to upgrade, you can repeat the decompress, move and register steps with the new version:
+
+    ```sh
+    $ export SHA256=$(shasum -a 256 "/etc/vault/plugins/vault-secrets-gen_vX.X.X" | cut -d' ' -f1)
+    $ mv vault-secrets-gen_vX.X.X <vault-plugin-directory>/
+    $ vault plugin register \
+        -sha256="${SHA256}" \
+        -command="vault-secrets-gen_vX.X.X" \
+        -version="vX.X.X" \
+        secret secrets-gen
+    $ vault secrets tune -plugin-version=v1.0.8 secrets-gen
+    $ vault plugin reload -plugin secrets-gen
+    ```
+
+Where `vX.X.X` deontes the target version, you wish to upgrade to.
+Note that the `-version` option is only supported in vault server versions staring from `1.12.0`,
+omit it for earlier versions.
+
+See:
+ - https://developer.hashicorp.com/vault/docs/upgrading/plugins
+ - https://developer.hashicorp.com/vault/docs/v1.11.x/upgrading/plugins (for vault server versions <1.12.0)
+
 ## Usage & API
 
 ### Policy requirements
