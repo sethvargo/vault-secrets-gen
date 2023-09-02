@@ -28,6 +28,59 @@ that kinda thing.
    ```sh
    setcap cap_ipc_lock=+ep /etc/vault/plugins/vault-secrets-gen
    ```
+   1. Enable mlock in kubernetes vault pod
+
+      First of all, It's not necessary when we are speaking about Vault in kubernetes, but if you want to enable mlock, check the following steps:
+      
+      - Add the following code into your values.yaml file before deploy the helm chart
+      ```yaml
+        extraInitContainers:
+        - args:
+          - cd /tmp &&
+            wget https://github.com/sethvargo/vault-secrets-gen/releases/download/VERSION/DISTRIBUTION -O vault-secrets-gen.zip &&
+            unzip vault-secrets-gen.zip &&
+            mv vault-secrets-gen_VERSION /plugin_path/vault-secrets-gen &&
+            chmod u+x /plugin_path/vault-secrets-gen &&
+            chown vault:vault /plugin_path/vault-secrets-gen
+          command:
+          - sh
+          - -c
+          image: alpine
+          name: plugins
+          volumeMounts:
+          - mountPath: /plugin_path/
+            name: plugins
+        standalone:
+          config: |
+            plugin_directory = "/plugin_path/"
+        raft:
+          config: |
+            plugin_directory = "/plugin_path/"
+        ha:
+          config: |
+            plugin_directory = "/plugin_path/"
+        volumeMounts:
+          - mountPath: /plugin_path
+            name: plugins
+            readOnly: true
+          volumes:
+          - emptyDir: {}
+            name: plugins
+      ```
+      - Set allowPrivilegeEscalation as true
+      - Remove the security context to run as root
+        ```bash                             
+        securityContext:                                       
+          fsGroup: 1000                       
+          runAsGroup: 1000                     
+          runAsNonRoot: true                   
+          runAsUser: 100
+        ```
+      - Add the command ```setcap cap_ipc_lock=+ep /plugin_path/vault-secrets-gen_VERSION ``` on postStart block
+
+   > **_NOTE:_**  Changing this you will lose in security terms. Choose your installation (Standalone/raft/ha) to set the ```plugin_directory```. Also choose the Version and Distribution [here](https://github.com/sethvargo/vault-secrets-gen/releases)
+
+   
 
 1. Calculate the SHA256 of the plugin and register it in Vault's plugin catalog.
 If you are downloading the pre-compiled binary, it is highly recommended that
